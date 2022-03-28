@@ -39,5 +39,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.14",
+    "@types/react-modal": "^3.13.1",
+    "@types/react-router": "^5.1.18",
+    "@types/react-router-dom": "^5.3.3",
+    "react-modal": "^3.14.4",
+    "react-router": "^6.2.2",
+    "react-router-dom": "^6.2.2"
   }
 }
