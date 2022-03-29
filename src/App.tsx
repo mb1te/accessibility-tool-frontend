@@ -13,7 +13,7 @@ class App extends Component {
           <Route
             path="/"
             element={
-              <div id="main-page">
+              <div id="/accessibility-tool-frontend/main-page">
                 <Header />
                 <Main />
                 <Footer />
@@ -22,7 +22,7 @@ class App extends Component {
           />
 
           <Route
-            path="/check"
+            path="/accessibility-tool-frontend/check"
             element={
               <div>
                 <div className="container" id="check-header">
