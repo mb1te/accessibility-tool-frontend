@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/accessibility-tool-frontend/static/css/main.c7179062.css",
+    "main.js": "/accessibility-tool-frontend/static/js/main.6282a5bf.js",
+    "static/media/BG.png": "/accessibility-tool-frontend/static/media/BG.30ad95d269c7df4e5b34.png",
+    "static/media/logo-ws.png": "/accessibility-tool-frontend/static/media/logo-ws.23233e09efe19e49c94f.png",
+    "static/media/email.svg": "/accessibility-tool-frontend/static/media/email.d245c1f130313ab6a65318c4db5dec45.svg",
+    "static/media/tel.svg": "/accessibility-tool-frontend/static/media/tel.3dbf3efcc3244a6f029720a5bc37615e.svg",
+    "index.html": "/accessibility-tool-frontend/index.html",
+    "main.c7179062.css.map": "/accessibility-tool-frontend/static/css/main.c7179062.css.map",
+    "main.6282a5bf.js.map": "/accessibility-tool-frontend/static/js/main.6282a5bf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c7179062.css",
+    "static/js/main.6282a5bf.js"
+  ]
+}
