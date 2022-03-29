@@ -6,9 +6,10 @@ import CheckListSection from "./CheckListSection";
 import CheckSubbutton from "./CheckSubbutton";
 
 interface CheckListsState {
-  CheckListsDiv: Object;
-  curDiv: number;
-  curSubDiv: number;
+    CheckListsDiv: Object;
+    curDiv: number;
+    curSubDiv: number;
+    result: Object;
 }
 
 class CheckLists extends React.Component<{}, CheckListsState> {
@@ -16,10 +17,11 @@ class CheckLists extends React.Component<{}, CheckListsState> {
     super(props);
 
     this.state = {
-      CheckListsDiv: JSON.parse(JSON.stringify(data)),
-      curDiv: 0,
-      curSubDiv: 0,
-    };
+        CheckListsDiv: JSON.parse(JSON.stringify(data)),
+        curDiv: 0,
+        curSubDiv: 0,
+        result: {}
+    }
   }
 
   render() {
@@ -35,7 +37,7 @@ class CheckLists extends React.Component<{}, CheckListsState> {
           name={buttonName}
           isActive={this.state.curDiv === index}
           key={index}
-          onClick={() => this.setState({ curDiv: index })}
+          onClick={() => this.setState({ curDiv: index, curSubDiv: 0 })}
         />
       );
     });

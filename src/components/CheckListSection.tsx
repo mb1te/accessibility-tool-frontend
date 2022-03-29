@@ -5,24 +5,11 @@ interface SectionProps {
   wcag: string;
 }
 
-interface SectionState {
-  name: string;
-  wcag: string;
-}
-
-class CheckListSection extends React.Component<SectionProps, SectionState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: this.props.name,
-      wcag: this.props.wcag,
-    };
-  }
-
+class CheckListSection extends React.Component<SectionProps, {}> {
   render() {
     return (
       <div className="check-main__section">
-        <div className="check-main__title">{this.state.name}</div>
+        <div className="check-main__title">{this.props.name}</div>
         <div className="check-main__per">
           <p>Выполнение:</p>
           <select id="per" name="per">
@@ -49,7 +36,7 @@ class CheckListSection extends React.Component<SectionProps, SectionState> {
 
         <div className="check-main__wgac">
           <p className="check-main__title-wgac">Критерий WCAG 2.1:</p>
-          <p>{this.state.wcag}</p>
+          <p>{this.props.wcag}</p>
         </div>
 
         <button className="check-main__button">OK</button>
