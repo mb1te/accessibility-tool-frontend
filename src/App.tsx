@@ -3,14 +3,14 @@ import { Component } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
-import Checker from "./components/Checker";
+import CheckLists from "./components/CheckLists";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Routes>
-          <Route
+          {/* <Route
             path="/"
             element={
               <div id="/accessibility-tool-frontend/main-page">
@@ -19,15 +19,16 @@ class App extends Component {
                 <Footer />
               </div>
             }
-          />
+          /> */}
 
           <Route
-            path="/accessibility-tool-frontend/check"
+            // path="/accessibility-tool-frontend/check"
+            path="/"
             element={
               <div>
                 <div className="container" id="check-header">
                   <Header />
-                  <Checker />
+                  <CheckLists />
                   <Footer />
                 </div>
               </div>
