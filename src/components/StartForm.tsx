@@ -58,7 +58,7 @@ const StartForm: FC = () => {
                               placeholder="Описание ресурса. Дополнительная информация (до 200 символов)"
                               maxLength={200} />
                 </div>
-                <a href={Path.check}><button className="popup-fade__start">Начать</button></a>
+                <a href={Path.check}><button className="popup-fade__start" onClick={localStorage.clear}>Начать</button></a>
                 <p className="popup-fade__ps">* - Обязательное поле </p>
             </div>
         </Modal>
