@@ -1,13 +1,14 @@
-import ReactDOM from "react-dom";
+import {createRoot} from "react-dom/client";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
 
-import "./styles.scss";
-import "./normalize.css";
+import "./styles/normalize.css";
+import "./styles/styles.css";
 
-ReactDOM.render(
-  <BrowserRouter>
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
     <App />
-  </BrowserRouter>,
-  document.getElementById("root")
 );
+
+console.log('Build time: ' + new Date(process.env.BUILD_TIME).toLocaleString());

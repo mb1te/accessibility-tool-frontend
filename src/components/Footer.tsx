@@ -1,7 +1,8 @@
 import email_img from "../assets/email.svg";
 import tel_img from "../assets/tel.svg";
+import {FC} from "react";
 
-function Footer() {
+const Footer: FC = () => {
   return (
     <footer className="footer">
       <div className="footer__text">
