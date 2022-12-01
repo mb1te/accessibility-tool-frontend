@@ -1,5 +1,6 @@
 import React, {FC} from "react";
 import Modal from "react-modal";
+import {Path} from "../constants/path";
 
 const StartForm: FC = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -57,7 +58,7 @@ const StartForm: FC = () => {
                               placeholder="Описание ресурса. Дополнительная информация (до 200 символов)"
                               maxLength={200} />
                 </div>
-                <button className="popup-fade__start">Начать</button>
+                <a href={Path.check}><button className="popup-fade__start">Начать</button></a>
                 <p className="popup-fade__ps">* - Обязательное поле </p>
             </div>
         </Modal>

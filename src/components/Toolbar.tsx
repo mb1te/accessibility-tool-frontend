@@ -18,22 +18,6 @@ const Toolbar: FC<ToolbarProps> = ({save, openModal}) => {
                     <img src={back_img} className="btn-back-img" alt="кнопка назад" />
                 </button>
             </a>
-            <button id="btn-new">
-                <div className="check-main__btn">
-                    <img src={btn_new_img} className="btn-img" alt="начать проверку" />
-                    <p>Начать проверку</p>
-                </div>
-            </button>
-            <button id="btn-open">
-                <div className="check-main__btn">
-                    <img
-                        src={btn_open_img}
-                        className="btn-img"
-                        alt="открыть проверку"
-                    />
-                    <p>Открыть проверку</p>
-                </div>
-            </button>
             <button id="btn-save" onClick={save}>
                 <div className="check-main__btn">
                     <img

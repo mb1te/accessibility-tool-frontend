@@ -1,5 +1,5 @@
 import Footer from "./Footer";
-import React, {FC, Fragment, useEffect, useState} from "react";
+import React, {FC, Fragment, useState} from "react";
 import Modal from "react-modal";
 import HeaderCheck from "./HeaderCheck";
 import Toolbar from "./Toolbar";
@@ -11,8 +11,7 @@ import CheckSubbutton from "./CheckSubbutton";
 const CheckPage: FC = () => {
     const [curDiv, setCurDiv] = useState(0);
     const [curSubDiv, setCurSubDiv] = useState(0);
-    const [result, setResult] = useState({});
-    const [checkLists, setCheckLists] = useState(JSON.parse(JSON.stringify(data)));
+    const [checkLists] = useState(JSON.parse(JSON.stringify(data)));
     const [resourceName, setResourceName] = useState("");
 
     const names = Object.keys(checkLists);
@@ -102,6 +101,21 @@ const CheckPage: FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const closeModal = () => setIsOpen(false);
     const openModal = () => setIsOpen(true);
+
+    const [checklistCommon, setChecklistCommon] = useState(false);
+    const [checklistMainContent, setChecklistMainContent] = useState(false);
+    const [checklistMedia, setChecklistMedia] = useState(false);
+    const [checklistTests, setChecklistTests] = useState(false);
+    const [checklistSimulations, setChecklistSimulations] = useState(false);
+    const [checklistMath, setChecklistMath] = useState(false);
+    const [checklistProg, setChecklistProg] = useState(false);
+    const [errorSource, setErrorSource] = useState(false);
+    const [executedYes, setExecutedYes] = useState(false);
+    const [executedFalse, setExecutedFalse] = useState(false);
+    const [executedCant, setExecutedCant] = useState(false);
+    const [wcagSuccess, setWcagSuccess] = useState(false);
+    const [wcagLvl, setWcagLvl] = useState(false);
+    const [wcagDesc, setWcagDesc] = useState(false);
 
     return (
         <Fragment>
@@ -202,15 +216,15 @@ const CheckPage: FC = () => {
                         </div>
                     </div>
                 </div>
-                <Modal className="check-popup-fade hidden" isOpen={isOpen} onRequestClose={closeModal} ariaHideApp={false}>
+                <Modal className="check-popup-fade" isOpen={isOpen} onRequestClose={closeModal} ariaHideApp={false}>
                     <div className="check-popup-fade__popup">
-                        <button className="check-popup-fade__popup-close">
+                        <button className="check-popup-fade__popup-close" onClick={closeModal}>
                             <svg width="3vw" height="3vw" viewBox="0 0 43 46" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <line x1="1.93934" y1="41.9393" x2="41.9393" y2="1.93934" stroke="black"
-                                      stroke-width="5"/>
+                                      strokeWidth="5"/>
                                 <line x1="41.9393" y1="44.0607" x2="1.93934" y2="4.06066" stroke="black"
-                                      stroke-width="5"/>
+                                      strokeWidth="5"/>
                             </svg>
                         </button>
                         <div className="check-popup-fade__title">Выберите поля для отчёта</div>
