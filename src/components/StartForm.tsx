@@ -41,7 +41,7 @@ const StartForm: FC = () => {
 
             <div className="main__cards">
               <button className="main__button-new" onClick={openModal}>Начать проверку</button>
-              <button className="main__button-cont">Продолжить проверку</button>
+                <a href={Path.check}><button className="main__button-cont">Продолжить проверку</button></a>
             </div>
           </main>
 

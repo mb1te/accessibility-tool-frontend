@@ -8,7 +8,6 @@ import CheckButton from "./CheckButton";
 import change_name_img from "../assets/Change-name.png";
 import CheckSubbutton from "./CheckSubbutton";
 import { useSearchParams } from "react-router-dom";
-import ReactPDF, { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 const CheckPage: FC = () => {
     const [ searchParams, setSearchParams ] = useSearchParams();
@@ -87,6 +86,11 @@ const CheckPage: FC = () => {
         }
         let keys = Object.keys(res);
         let table = [];
+        table.push(["Название ресурса", resourceName, '', ''])
+        table.push(["URL ресурса", resourceUrl, '', ''])
+        table.push(["Платформа", platform, '', ''])
+        table.push(["Автор", author, '', ''])
+        table.push(["Краткая характеристика ресурса", characteristic, '', ''])
         for (let key of keys) {
             table.push([key, ...res[key]]);
         }
@@ -117,19 +121,6 @@ const CheckPage: FC = () => {
     const [checklistSimulations, setChecklistSimulations] = useState(false);
     const [checklistMath, setChecklistMath] = useState(false);
     const [checklistProg, setChecklistProg] = useState(false);
-
-    const MyDocument: FC = () => (
-        <Document>
-            <Page size="A4">
-                <View>
-                    <Text>Section #1</Text>
-                </View>
-                <View>
-                    <Text>Section #2</Text>
-                </View>
-            </Page>
-        </Document>
-    );
 
     return (
         <Fragment>
@@ -344,13 +335,7 @@ const CheckPage: FC = () => {
                                 <input type="checkbox" id="cb-conclus" name="conclus" disabled={true} />
                             </div>
                         </div>
-                        <PDFDownloadLink
-                            document={<Document />}
-                            fileName="report.pdf"
-                            onClick={closeModal}
-                        >
-                            <button className="check-popup-fade__ok">OK</button>
-                        </PDFDownloadLink>
+                        <button className="check-popup-fade__ok">OK</button>
                     </div>
                 </Modal>
             </main>
