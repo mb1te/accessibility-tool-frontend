@@ -1,17 +1,34 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import Modal from "react-modal";
 import {Path} from "../constants/path";
 
 const StartForm: FC = () => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [resourceName, setResourceName] = useState("");
+    const [resourceUrl, setResourceUrl] = useState("");
+    const [platform, setPlatform] = useState("");
+    const [author, setAuthor] = useState("");
+    const [characteristic, setCharacteristic] = useState("");
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
+    const onChange = (e) => {
+        const name = e.target.name, value = e.target.value;
+        if (name === "name") setResourceName(value);
+        if (name === "url") setResourceUrl(value);
+        if (name === "platform") setPlatform(value);
+        if (name === "author") setAuthor(value);
+        if (name === "characteristic") setCharacteristic(value);
+    }
+    const isDisabled = () => !!!resourceName;
+    const getUrl = () => {
+        let ans = `${Path.check}?resourceName=${resourceName}`;
+        if (!!resourceUrl) ans += `&resourceUrl=${resourceUrl}`
+        if (!!platform) ans += `&platform=${platform}`;
+        if (!!author) ans += `&author=${author}`;
+        if (!!characteristic) ans += `&characteristic=${characteristic}`;
+        return ans;
+    }
 
   return (
       <div>
@@ -44,21 +61,25 @@ const StartForm: FC = () => {
                 </button>
         <div className="popup-fade__inputs">
                     <label htmlFor="name" className="popup-fade__input">Название ресурса *</label>
-                    <input type="text" id="name" className="modal-input"
+                    <input type="text" id="name" name="name" className="modal-input" onChange={onChange}
                            placeholder="Короткое название  (до 100 символов)" maxLength={100} />
                     <label htmlFor="url" className="popup-fade__input">URL ресурса</label>
-                    <input type="url" id="url" className="modal-input" placeholder="http://" />
+                    <input type="url" id="url" name="url" className="modal-input" placeholder="http://"
+                           onChange={onChange}/>
                     <label htmlFor="plt" className="popup-fade__input">Платформа</label>
-                    <input type="text" id="plt" className="modal-input"
+                    <input type="text" id="plt" name="platform" className="modal-input" onChange={onChange}
                            placeholder="Наименование (до 50 символов)" maxLength={50} />
                     <label htmlFor="auth" className="popup-fade__input">Автор</label>
-                    <input type="text" id="auth" className="modal-input" placeholder="Фамилия И.О." />
+                    <input type="text" id="auth" name="author" className="modal-input" placeholder="Фамилия И.О."
+                           onChange={onChange}/>
                     <label htmlFor="char" className="popup-fade__input">Краткая характеристика ресурса</label>
-                    <textarea id="char" className="modal-input"
+                    <textarea id="char" className="modal-input" name="characteristic"
                               placeholder="Описание ресурса. Дополнительная информация (до 200 символов)"
-                              maxLength={200} />
+                              maxLength={200}  onChange={onChange}/>
                 </div>
-                <a href={Path.check}><button className="popup-fade__start" onClick={localStorage.clear}>Начать</button></a>
+                <a href={getUrl()}>
+                    <button className="popup-fade__start" onClick={() => localStorage.clear()} disabled={isDisabled()}>Начать</button>
+                </a>
                 <p className="popup-fade__ps">* - Обязательное поле </p>
             </div>
         </Modal>

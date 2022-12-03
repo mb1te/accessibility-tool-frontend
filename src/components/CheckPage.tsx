@@ -7,12 +7,20 @@ import data from "../assets/data.json";
 import CheckButton from "./CheckButton";
 import change_name_img from "../assets/Change-name.png";
 import CheckSubbutton from "./CheckSubbutton";
+import { useSearchParams } from "react-router-dom";
+import ReactPDF, { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 const CheckPage: FC = () => {
+    const [ searchParams, setSearchParams ] = useSearchParams();
+
     const [curDiv, setCurDiv] = useState(0);
     const [curSubDiv, setCurSubDiv] = useState(0);
     const [checkLists] = useState(JSON.parse(JSON.stringify(data)));
-    const [resourceName, setResourceName] = useState("");
+    const [resourceName, setResourceName] = useState(searchParams.get("resourceName"));
+    const [resourceUrl, setResourceUrl] = useState(searchParams.get("resourceUrl"));
+    const [platform, setPlatform] = useState(searchParams.get("platform"));
+    const [author, setAuthor] = useState(searchParams.get("author"));
+    const [characteristic, setCharacteristic] = useState(searchParams.get("characteristic"));
 
     const names = Object.keys(checkLists);
     const subnames = names.map(name => Object.keys(checkLists[name]));
@@ -109,13 +117,19 @@ const CheckPage: FC = () => {
     const [checklistSimulations, setChecklistSimulations] = useState(false);
     const [checklistMath, setChecklistMath] = useState(false);
     const [checklistProg, setChecklistProg] = useState(false);
-    const [errorSource, setErrorSource] = useState(false);
-    const [executedYes, setExecutedYes] = useState(false);
-    const [executedFalse, setExecutedFalse] = useState(false);
-    const [executedCant, setExecutedCant] = useState(false);
-    const [wcagSuccess, setWcagSuccess] = useState(false);
-    const [wcagLvl, setWcagLvl] = useState(false);
-    const [wcagDesc, setWcagDesc] = useState(false);
+
+    const MyDocument: FC = () => (
+        <Document>
+            <Page size="A4">
+                <View>
+                    <Text>Section #1</Text>
+                </View>
+                <View>
+                    <Text>Section #2</Text>
+                </View>
+            </Page>
+        </Document>
+    );
 
     return (
         <Fragment>
@@ -233,52 +247,73 @@ const CheckPage: FC = () => {
                                 <p className="check-popup-fade__check-lists-title">Чек-листы</p>
                                 <div className="check-popup-fade__check-container">
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-general" name="general" />
-                                        <label htmlFor="general">Общая доступность</label>
+                                        <input type="checkbox" id="cb-general" name="general"
+                                               defaultChecked={checklistCommon}
+                                               onChange={() => setChecklistCommon(!checklistCommon)}
+                                        />
+                                        <label htmlFor="cb-general">Общая доступность</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-basic" name="basic" />
-                                        <label htmlFor="basic">Доступность основного контента</label>
+                                        <input type="checkbox" id="cb-basic" name="basic"
+                                               defaultChecked={checklistMainContent}
+                                               onChange={() => setChecklistMainContent(!checklistMainContent)}
+                                        />
+                                        <label htmlFor="cb-basic">Доступность основного контента</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-media" name="media" />
-                                        <label htmlFor="media">Медиа</label>
+                                        <input type="checkbox" id="cb-media" name="media"
+                                               defaultChecked={checklistMedia}
+                                               onChange={() => setChecklistMedia(!checklistMedia)}
+                                        />
+                                        <label htmlFor="cb-media">Медиа</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-tests" name="tests" />
-                                        <label htmlFor="tests">Тесты</label>
+                                        <input type="checkbox" id="cb-tests" name="tests"
+                                               defaultChecked={checklistTests}
+                                               onChange={() => setChecklistTests(!checklistTests)}
+                                        />
+                                        <label htmlFor="cb-tests">Тесты</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-simul" name="simul" />
-                                        <label htmlFor="simul">Симуляции</label>
+                                        <input type="checkbox" id="cb-simul" name="simul"
+                                               defaultChecked={checklistSimulations}
+                                               onChange={() => setChecklistSimulations(!checklistSimulations)}
+                                        />
+                                        <label htmlFor="cb-simul">Симуляции</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-mathn" name="mathn" />
-                                        <label htmlFor="mathn">Математическая нотация</label>
+                                        <input type="checkbox" id="cb-mathn" name="mathn"
+                                               defaultChecked={checklistMath}
+                                               onChange={() => setChecklistMath(!checklistMath)}
+                                        />
+                                        <label htmlFor="cb-mathn">Математическая нотация</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-progk" name="progk" />
-                                        <label htmlFor="progk">Программный код</label>
+                                        <input type="checkbox" id="cb-progk" name="progk"
+                                               defaultChecked={checklistProg}
+                                               onChange={() => setChecklistProg(!checklistProg)}
+                                        />
+                                        <label htmlFor="cb-progk">Программный код</label>
                                     </div>
                                 </div>
                             </div>
                             <div className="check-popup-fade__smist">
                                 <label htmlFor="sourmist">Источник ошибки</label>
-                                <input type="checkbox" id="cb-sourmist" name="sourmist" />
+                                <input type="checkbox" id="cb-sourmist" name="sourmist" disabled={true} />
                             </div>
                             <div className="check-popup-fade__perform">
                                 <p className="check-popup-fade__perform-title">Выполнение</p>
                                 <div className="check-popup-fade__check-container">
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-nperform" name="nperform" />
+                                        <input type="checkbox" id="cb-nperform" name="nperform" disabled={true} />
                                         <label htmlFor="nperform">Невыполненные</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-perform" name="perform" />
+                                        <input type="checkbox" id="cb-perform" name="perform" disabled={true} />
                                         <label htmlFor="perform">Выполненные</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-applic" name="applic" />
+                                        <input type="checkbox" id="cb-applic" name="applic" disabled={true} />
                                         <label htmlFor="applic">Не применимые</label>
                                     </div>
                                 </div>
@@ -287,29 +322,35 @@ const CheckPage: FC = () => {
                                 <p className="check-popup-fade__wgac-title">WGAC 2.1</p>
                                 <div className="check-popup-fade__check-container">
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-crit" name="crit" />
+                                        <input type="checkbox" id="cb-crit" name="crit" disabled={true} />
                                         <label htmlFor="crit">Критерий успеха</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-confor" name="confor" />
+                                        <input type="checkbox" id="cb-confor" name="confor" disabled={true} />
                                         <label htmlFor="confor">Уровень соответствия</label>
                                     </div>
                                     <div className="cb-container">
-                                        <input type="checkbox" id="cb-decod" name="decod" />
+                                        <input type="checkbox" id="cb-decod" name="decod" disabled={true} />
                                         <label htmlFor="decod">Расшифровка критерия</label>
                                     </div>
                                 </div>
                             </div>
                             <div className="check-popup-fade__comm">
                                 <label htmlFor="comm">Комментарии эксперта</label>
-                                <input type="checkbox" id="cb-comm" name="comm" />
+                                <input type="checkbox" id="cb-comm" name="comm" disabled={true} />
                             </div>
                             <div className="check-popup-fade__conclus">
                                 <label htmlFor="conclus">Итоговое заключение эксперта</label>
-                                <input type="checkbox" id="cb-conclus" name="conclus" />
+                                <input type="checkbox" id="cb-conclus" name="conclus" disabled={true} />
                             </div>
                         </div>
-                        <button className="check-popup-fade__ok">OK</button>
+                        <PDFDownloadLink
+                            document={<Document />}
+                            fileName="report.pdf"
+                            onClick={closeModal}
+                        >
+                            <button className="check-popup-fade__ok">OK</button>
+                        </PDFDownloadLink>
                     </div>
                 </Modal>
             </main>
